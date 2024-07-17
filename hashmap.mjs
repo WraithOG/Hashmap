@@ -110,6 +110,21 @@ class HashMap {
         this.size = 0;
     }
 
+    keys() {
+        let keys = [];
+        for(let i = 0; i < this.array.length; i++) {
+            let curNode = this.array[i];
+            if(curNode !== undefined) {
+                while(curNode.nextNode !== null){
+                    keys.push(curNode.key);
+                    curNode = curNode.nextNode;
+                }
+                keys.push(curNode.key);
+            }
+            
+        }
+        return keys;
+    }
 
 }
 
@@ -119,8 +134,6 @@ hash.set("test", "bannana");
 hash.set("fruit", "apple");
 hash.set("blest", "test");
 hash.set("lest", "test1");
-hash.remove("lest");
-hash.clear();
+hash.keys();
 
-
-console.log(hash.array);
+console.log(hash.keys());
