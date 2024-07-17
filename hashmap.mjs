@@ -45,7 +45,7 @@ class HashMap {
     }
     get(key) {
         let bucket = this.hash(key);
-        if(this.array[bucket] !== null) {
+        if(this.array[bucket] !== undefined) {
             let curNode = this.array[bucket];
             if(curNode.key === key){
                 return curNode.value;
@@ -57,17 +57,14 @@ class HashMap {
                 return curNode.value;
             }
         }
+        if(this.array[bucket] === undefined) {
+            return null;
+        }
 
     }
 
     has(key) {
-        let bucket = this.hash(key);
-        if (this.array[bucket] === undefined) {
-            return false;
-        }
-        else {
-            return true;
-        }
+        return Boolean(this.get(key));
     }
 
     remove(key) {
@@ -83,4 +80,4 @@ hash.set("fruit", "apple");
 hash.set("blest", "test");
 hash.set("lest", "test1");
 
-console.log(hash.get("lest")); 
+console.log(hash.has("ladaest")); 
