@@ -160,7 +160,10 @@ class HashMap {
 
     resize(){
         if(this.size > Math.ceil(this.capacity * this.loadfactor)){
-            this.capacity++;
+            this.capacity = this.capacity * 2;
+            let copy = [...this.array];
+            this.array = Array(this.capacity);
+            this.array = [...copy];
         }
     }
 
