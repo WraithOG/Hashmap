@@ -68,7 +68,33 @@ class HashMap {
     }
 
     remove(key) {
+        let bucket = this.hash(key);
+        if(this.array[bucket] !== undefined) {
+            if(this.array[bucket].nextNode === null) {
+                this.array[bucket] = undefined;
+                return true
+            }
+            else if(this.array[bucket].key === key) {
+                this.array[bucket] = this.array[bucket].nextNode;
+                return true;
+            }
 
+            else {
+                let curNode = this.array[bucket];
+                while(curNode.nextNode !== null && curNode.nextNode.key !== key) {
+                    curNode = curNode.nextNode;
+                    
+                }
+                let deleteNode = curNode.nextNode;
+                let afterDelete = deleteNode.nextNode;
+                curNode.nextNode = afterDelete;
+                deleteNode.nextNode = null;
+                return true
+            }   
+        }
+        else {
+            return false;
+        }
     }
     
 }
@@ -79,5 +105,6 @@ hash.set("test", "bannana");
 hash.set("fruit", "apple");
 hash.set("blest", "test");
 hash.set("lest", "test1");
+hash.remove("lest");
 
-console.log(hash.has("ladaest")); 
+console.log(hash.array);
