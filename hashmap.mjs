@@ -6,6 +6,7 @@ class HashMap {
         this.capacity = 16;
         this.loadfactor = .75;
         this.array = Array(this.capacity);
+        this.size = 0;
     }
 
     hash(key) {
@@ -29,6 +30,7 @@ class HashMap {
         if(this.array[bucket] != null){
             let curNode = this.array[bucket];
             if(curNode.key !== node.key){
+                this.size++;
                 while(curNode.nextNode !== null){
                     curNode = curNode.nextNode;
                 }
@@ -37,11 +39,13 @@ class HashMap {
             else {
                 curNode.value = node.value;
             }
+        
         }
         else {
             this.array[bucket] = node;
+            this.size++;
         }
-
+        
     }
     get(key) {
         let bucket = this.hash(key);
@@ -70,6 +74,7 @@ class HashMap {
     remove(key) {
         let bucket = this.hash(key);
         if(this.array[bucket] !== undefined) {
+            this.size--;
             if(this.array[bucket].nextNode === null) {
                 this.array[bucket] = undefined;
                 return true
@@ -96,6 +101,9 @@ class HashMap {
             return false;
         }
     }
+    length(){
+        return this.size;
+    }
     
 }
 
@@ -107,4 +115,5 @@ hash.set("blest", "test");
 hash.set("lest", "test1");
 hash.remove("lest");
 
-console.log(hash.array);
+
+console.log(hash.length());
