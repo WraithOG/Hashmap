@@ -1,6 +1,5 @@
-import {Node} from '../linkedlist/linkedlist.mjs'
 
-class HashMap {
+export class HashMap {
 
     constructor(){
         this.capacity = 16;
@@ -46,7 +45,7 @@ class HashMap {
             this.array[bucket] = node;
             this.size++;
         }
-        
+        this.resize();
     }
     get(key) {
         let bucket = this.hash(key);
@@ -161,20 +160,17 @@ class HashMap {
     resize(){
         if(this.size > Math.ceil(this.capacity * this.loadfactor)){
             this.capacity = this.capacity * 2;
-            let copy = [...this.array];
-            this.array = Array(this.capacity);
-            this.array = [...copy];
+            this.array.length = this.capacity;
+            
         }
     }
 
 }
 
-let hash = new HashMap();
-hash.set("test", "apple");
-hash.set("test", "bannana");
-hash.set("fruit", "apple");
-hash.set("blest", "test");
-hash.set("lest", "test1");
-hash.keys();
-
-console.log(hash.entries());
+class Node {
+    constructor(key, value){
+        this.key = key;
+        this.value = value;
+        this.nextNode = null;
+    }
+}
