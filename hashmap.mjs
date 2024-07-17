@@ -15,12 +15,13 @@ class HashMap {
         for(let i = 0; i < key.length; i++){
             hashcode += Math.floor(table_size * (key.charCodeAt(i) % constant));
         }
+        hashcode = hashcode % this.capacity;
 
         return hashcode;
     }
 
     set(key, value){
-        let bucket = this.hash(key) % this.capacity;
+        let bucket = this.hash(key);
         //creating linked list in case of collision
         let node = new Node();
         node.key = key;
@@ -43,7 +44,20 @@ class HashMap {
 
     }
     get(key) {
-        
+        let bucket = this.hash(key);
+        if(this.array[bucket] !== null) {
+            let curNode = this.array[bucket];
+            if(curNode.key === key){
+                return curNode.value;
+            }
+            else {
+                while(curNode.key !== key) {
+                    curNode = curNode.nextNode;
+                }
+                return curNode.value;
+            }
+        }
+
     }
 
     has(key) {
@@ -67,6 +81,6 @@ hash.set("test", "apple");
 hash.set("test", "bannana");
 hash.set("fruit", "apple");
 hash.set("blest", "test");
-hash.set("lest", "test");
+hash.set("lest", "test1");
 
-console.log(hash.array); 
+console.log(hash.get("lest")); 
