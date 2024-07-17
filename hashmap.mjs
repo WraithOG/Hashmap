@@ -125,6 +125,37 @@ class HashMap {
         }
         return keys;
     }
+    values(){
+        let values = [];
+        for(let i = 0; i < this.array.length; i++) {
+            let curNode = this.array[i];
+            if(curNode !== undefined) {
+                while(curNode.nextNode !== null){
+                    values.push(curNode.value);
+                    curNode = curNode.nextNode;
+                }
+                values.push(curNode.value);
+            }
+            
+        }
+        return values;
+    }
+
+    entries(){
+        let entries = [];
+        for(let i = 0; i < this.array.length; i++) {
+            let curNode = this.array[i];
+            if(curNode !== undefined) {
+                while(curNode.nextNode !== null){
+                    entries.push([curNode.key, curNode.value]);
+                    curNode = curNode.nextNode;
+                }
+                entries.push([curNode.key, curNode.value]);
+            }
+            
+        }
+        return entries;
+    }
 
 }
 
@@ -136,4 +167,4 @@ hash.set("blest", "test");
 hash.set("lest", "test1");
 hash.keys();
 
-console.log(hash.keys());
+console.log(hash.entries());
