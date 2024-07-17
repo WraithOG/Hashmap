@@ -105,6 +105,12 @@ class HashMap {
         return this.size;
     }
     
+    clear(){
+        this.array = Array(this.capacity);
+        this.size = 0;
+    }
+
+
 }
 
 let hash = new HashMap();
@@ -114,6 +120,7 @@ hash.set("fruit", "apple");
 hash.set("blest", "test");
 hash.set("lest", "test1");
 hash.remove("lest");
+hash.clear();
 
 
-console.log(hash.length());
+console.log(hash.array);
