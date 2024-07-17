@@ -1,4 +1,4 @@
-import {LinkedList} from '../linkedlist/linkedlist.mjs'
+import {Node} from '../linkedlist/linkedlist.mjs'
 
 class HashMap {
 
@@ -22,25 +22,28 @@ class HashMap {
     set(key, value){
         let bucket = this.hash(key) % this.capacity;
         //creating linked list in case of collision
-        if(this.array[bucket] != null && this.array[bucket][0] != key){
-            let list = new LinkedList();
-            list.append(this.array[bucket][0], this.array[bucket][1]);
-            list.append(key, value);
-            this.array[bucket] = [list];
+        let node = new Node();
+        node.key = key;
+        node.value = value;
+        if(this.array[bucket] != null){
+            let curNode = this.array[bucket];
+            if(curNode.key !== node.key){
+                while(curNode.nextNode !== null){
+                    curNode = curNode.nextNode;
+                }
+                curNode.nextNode = node;
+            }
+            else {
+                curNode.value = node.value;
+            }
         }
         else {
-            this.array[bucket] = [key, value];
+            this.array[bucket] = node;
         }
 
     }
     get(key) {
-        let bucket = this.hash(key);
-        if(this.array[bucket] != null) {
-            return this.array[bucket][1];
-        }
-        else {
-            return null;
-        }
+        
     }
 
     has(key) {
@@ -66,4 +69,4 @@ hash.set("fruit", "apple");
 hash.set("blest", "test");
 hash.set("lest", "test");
 
-console.log(hash.array[1]);
+console.log(hash.array); 
