@@ -16,12 +16,13 @@ class HashMap {
         for(let i = 0; i < key.length; i++){
             hashcode += Math.floor(table_size * (key.charCodeAt(i) % constant));
         }
-        hashcode = hashcode % this.capacity;
+        hashcode = hashcode % table_size;
 
         return hashcode;
     }
 
     set(key, value){
+        this.resize();
         let bucket = this.hash(key);
         //creating linked list in case of collision
         let node = new Node();
@@ -155,6 +156,12 @@ class HashMap {
             
         }
         return entries;
+    }
+
+    resize(){
+        if(this.size > Math.ceil(this.capacity * this.loadfactor)){
+            this.capacity++;
+        }
     }
 
 }
