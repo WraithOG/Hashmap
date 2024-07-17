@@ -41,6 +41,16 @@ class HashMap {
             return null;
         }
     }
+
+    has(key) {
+        let bucket = this.hash(key);
+        if (this.array[bucket] === undefined) {
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
     
 }
 
@@ -49,4 +59,4 @@ hash.set("test", "apple");
 hash.set("test", "bannana");
 hash.set("fruit", "apple");
 
-console.log(hash.get("test"));
+console.log(hash.has("test"));
