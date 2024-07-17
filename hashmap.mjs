@@ -24,8 +24,9 @@ class HashMap {
         //creating linked list in case of collision
         if(this.array[bucket] != null && this.array[bucket][0] != key){
             let list = new LinkedList();
-            list.append(this.array[bucket]);
+            list.append(this.array[bucket][0], this.array[bucket][1]);
             list.append(key, value);
+            this.array[bucket] = [list];
         }
         else {
             this.array[bucket] = [key, value];
@@ -51,6 +52,10 @@ class HashMap {
             return true;
         }
     }
+
+    remove(key) {
+
+    }
     
 }
 
@@ -58,5 +63,7 @@ let hash = new HashMap();
 hash.set("test", "apple");
 hash.set("test", "bannana");
 hash.set("fruit", "apple");
+hash.set("blest", "test");
+hash.set("lest", "test");
 
-console.log(hash.has("test"));
+console.log(hash.array[1]);
